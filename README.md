@@ -31,7 +31,7 @@ Things you may want to cover:
 
 ### Association
 - has_many items
-- has_many comments
+- has_many orders
 
 
 ## items table
@@ -47,33 +47,26 @@ Things you may want to cover:
 |shipping_fee  |string     | null: false                    |
 |shipping_from |string     | null: false                    |
 |shipping_date |string     | null: false                    |
-|user_id       |references | null: false, foreign_key: true |
+|seller_id     |references | null: false, foreign_key: true |
 
 
 ### Association
 - belongs_to user 
-- has_many comments
+- has_one order
 
 
-## comments table
-
-|column        |type       | options                        |
-|--------------|-----------|--------------------------------|
-|comment       |string     | null: false                    |
-|user_id       |references | null: false, foreign_key: true |
-|price         |references | null: false, foreign_key: true |
-
-### Association
-- belongs_to user 
-- belongs_to item
 
 
-## buys table
+## orders table
 |column        |type       | options                        |
 |--------------|-----------|--------------------------------|
 |user_id       |references | null: false, foreign_key: true |
+|seller_id     |references | null: false, foreign_key: true |
+
 
 ### Association
+- belongs_to user
+- has_one item
 - has_one delivery
 
 
@@ -84,11 +77,11 @@ Things you may want to cover:
 |prefecture    |string     | null: false                    |
 |city          |string     | null: false                    |
 |address_detail|string     | null: false                    |
-|building      |string     | null: false                    |
+|building      |string     |                                |
 |tel           |string     | null: false                    |
 
 ### Association
-- has_one buy
+- has_one order
 
 
 * Database initialization
