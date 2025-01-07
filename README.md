@@ -15,18 +15,16 @@ Things you may want to cover:
 
 ## users table
 
-|column           |type   | options                   |
-|-----------------|-------|---------------------------|
-|nickname         |string | null: false               |
-|email            |string | null: false, unique: true |
-|password         |string | null: false               |
-|first_name       |string | null: false               |
-|family_name      |string | null: false               |
-|first_name_kana  |string | null: false               |
-|family_name_kana |string | null: false               |
-|birth_year       |string | null: false               |
-|birth_month      |string | null: false               |
-|birth_day        |string | null: false               |
+|column             |type   | options                   |
+|-------------------|-------|---------------------------|
+|nickname           |string | null: false               |
+|email              |string | null: false, unique: true |
+|encrypted_password |string | null: false               |
+|first_name         |string | null: false               |
+|family_name        |string | null: false               |
+|first_name_kana    |string | null: false               |
+|family_name_kana   |string | null: false               |
+|birthday           |date   | null: false               |
 
 
 ### Association
@@ -36,18 +34,17 @@ Things you may want to cover:
 
 ## items table
 
-|column        |type       | options                        |
-|--------------|-----------|--------------------------------|
-|name          |string     | null: false                    |
-|image         |text       | null: false                    |
-|price         |string     | null: false                    |
-|introduction  |string     | null: false                    |
-|category      |string     | null: false                    |
-|situation     |string     | null: false                    |
-|shipping_fee  |string     | null: false                    |
-|shipping_from |string     | null: false                    |
-|shipping_date |string     | null: false                    |
-|seller_id     |references | null: false, foreign_key: true |
+|column           |type       | options                        |
+|-----------------|-----------|--------------------------------|
+|name             |string     | null: false                    |
+|price            |integer    | null: false                    |
+|introduction     |text       | null: false                    |
+|category_id      |integer    | null: false                    |
+|situation_id     |integer    | null: false                    |
+|shipping_fee_id  |integer    | null: false                    |
+|shipping_from_id |integer    | null: false                    |
+|shipping_date_id |integer    | null: false                    |
+|user             |references | null: false, foreign_key: true |
 
 
 ### Association
@@ -60,28 +57,30 @@ Things you may want to cover:
 ## orders table
 |column        |type       | options                        |
 |--------------|-----------|--------------------------------|
-|user_id       |references | null: false, foreign_key: true |
-|seller_id     |references | null: false, foreign_key: true |
+|user          |references | null: false, foreign_key: true |
+|item          |references | null: false, foreign_key: true |
 
 
 ### Association
 - belongs_to user
-- has_one item
+- belongs_to item
 - has_one delivery
 
 
+
 ## deliveries table
-|column        |type       | options                        |
-|--------------|-----------|--------------------------------|
-|post_code     |string     | null: false                    |
-|prefecture    |string     | null: false                    |
-|city          |string     | null: false                    |
-|address_detail|string     | null: false                    |
-|building      |string     |                                |
-|tel           |string     | null: false                    |
+|column           |type       | options                        |
+|-----------------|-----------|--------------------------------|
+|post_code        |string     | null: false                    |
+|shipping_from_id |integer    | null: false                    |
+|city             |string     | null: false                    |
+|address_detail   |string     | null: false                    |
+|building         |string     |                                |
+|tel              |string     | null: false                    |
+|order            |references | null: false, foreign_key: true |
 
 ### Association
-- has_one order
+- belongs_to order
 
 
 * Database initialization
