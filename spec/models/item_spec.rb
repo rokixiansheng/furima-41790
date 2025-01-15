@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-
   before do
     @item = FactoryBot.build(:item)
   end
 
   describe '出品登録' do
-
     context '新規登録できるとき' do
       it '必要情報があれば登録ができる' do
         expect(@item).to be_valid
@@ -53,17 +51,17 @@ RSpec.describe Item, type: :model do
       it '価格がなければ登録できない' do
         @item.price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it '価格が¥300~¥9,999,999の間でなければ登録できない' do
         @item.price = '100'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it '価格が全角の場合は登録できない' do
         @item.price = '５００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not included in the list")
+        expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it '写真がない場合は登録できない' do
         @image = nil
@@ -71,8 +69,6 @@ RSpec.describe Item, type: :model do
         binding.pry
         expect(@item.errors.full_messages).to include "Image can't be blank"
       end
-
     end
   end
-
 end
