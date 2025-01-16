@@ -64,10 +64,9 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
       it '写真がない場合は登録できない' do
-        @image = nil
+        @item.image = nil
         @item.valid?
-        binding.pry
-        expect(@item.errors.full_messages).to include "Image can't be blank"
+        expect(@item.errors.full_messages).to include ("Image can't be blank")
       end
     end
   end
