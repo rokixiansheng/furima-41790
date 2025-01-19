@@ -1,10 +1,10 @@
 class OrderDelivery
   include ActiveModel::Model
-  attr_accessor :post_code, :shipping_from_id, :city, :address_detail, :building, :tel, :user_id, :item_id
+  attr_accessor :post_code, :shipping_from_id, :city, :address_detail, :building, :tel, :user_id, :item_id, :order_id
 
   with_options presence: true do
-    validates :city, :address_detail, :user_id, :item_id
-    validates :post_code, :tel, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :city, :address_detail, :user_id, :item_id, :tel
+    validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
   end  
   validates :shipping_from_id, numericality: { other_than: 1, message: "can't be blank" }
 
