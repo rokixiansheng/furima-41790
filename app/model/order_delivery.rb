@@ -9,7 +9,7 @@ class OrderDelivery
     validates :tel, inclusion: { in: 000000000..99999999999 }
   end  
   validates :shipping_from_id, numericality: { other_than: 1, message: "can't be blank" }
-  validaets :token, presence: true
+  validates :token, presence: true
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
