@@ -3,8 +3,9 @@ class OrderDelivery
   attr_accessor :post_code, :shipping_from_id, :city, :address_detail, :building, :tel, :user_id, :item_id, :order_id
 
   with_options presence: true do
-    validates :city, :address_detail, :user_id, :item_id, :tel
+    validates :city, :address_detail, :user_id, :item_id
     validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :tel, inclusion: { in: 000000000..99999999999 }
   end  
   validates :shipping_from_id, numericality: { other_than: 1, message: "can't be blank" }
 

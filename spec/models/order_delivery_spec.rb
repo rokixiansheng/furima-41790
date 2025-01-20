@@ -14,12 +14,8 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery).to be_valid
       end
       it '建物名は空でも保存できること' do
-          @order_delivery.building = ''
-          expect(@order_delivery).to be_valid
-      end
-      it 'house_numberは空でも保存できること' do
-      end
-      it 'building_nameは空でも保存できること' do
+        @order_delivery.building = ''
+        expect(@order_delivery).to be_valid
       end
     end
 
@@ -57,17 +53,17 @@ RSpec.describe OrderDelivery, type: :model do
       it '電話番号にハイフンがあると保存できないこと' do
         @order_delivery.tel = '090-1234-5678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is invalid. Include hyphen(-)")
+        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
       end
       it '電話番号が8桁以下だと保存できないこと' do
         @order_delivery.tel = '12345678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is invalid. Include hyphen(-)")
+        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
       end
       it '電話番号が12桁以上だと保存できないこと' do
         @order_delivery.tel = '123456781234'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is invalid. Include hyphen(-)")
+        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
       end
     end
   end
