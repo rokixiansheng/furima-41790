@@ -1,6 +1,7 @@
 class OrderDelivery
   include ActiveModel::Model
   attr_accessor :post_code, :shipping_from_id, :city, :address_detail, :building, :tel, :user_id, :item_id, :order_id
+  attr_accessor :token
 
   with_options presence: true do
     validates :city, :address_detail, :user_id, :item_id
@@ -8,6 +9,7 @@ class OrderDelivery
     validates :tel, inclusion: { in: 000000000..99999999999 }
   end  
   validates :shipping_from_id, numericality: { other_than: 1, message: "can't be blank" }
+  validaets :token, presence: true
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
