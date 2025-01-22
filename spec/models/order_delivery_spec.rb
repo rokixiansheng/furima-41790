@@ -53,17 +53,17 @@ RSpec.describe OrderDelivery, type: :model do
       it '電話番号にハイフンがあると保存できないこと' do
         @order_delivery.tel = '090-1234-5678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
+        expect(@order_delivery.errors.full_messages).to include("Tel must be 10 or 11 digits")
       end
       it '電話番号が8桁以下だと保存できないこと' do
         @order_delivery.tel = '12345678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
+        expect(@order_delivery.errors.full_messages).to include("Tel must be 10 or 11 digits")
       end
       it '電話番号が12桁以上だと保存できないこと' do
         @order_delivery.tel = '123456781234'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Tel is not included in the list")
+        expect(@order_delivery.errors.full_messages).to include("Tel must be 10 or 11 digits")
       end
       it 'tokenが空だと保存できないこと' do
         @order_delivery.token = nil
