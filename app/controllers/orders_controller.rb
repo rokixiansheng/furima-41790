@@ -1,11 +1,15 @@
 class OrdersController < ApplicationController
 
+
   def index
-    if user_signed_in?
-      @item = Item.find(params[:item_id])
+    @item = Item.find(params[:item_id])
+    if current_user == @item.user  
+      redirect_to root_path
+    elsif user_signed_in? && @item.order.present?
+      redirect_to root_path
+    elsif user_signed_in?
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @order_delivery = OrderDelivery.new
-      redirect_to root_path
     else
       redirect_to user_session_path
     end
@@ -37,5 +41,6 @@ class OrdersController < ApplicationController
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
+
 
 end
