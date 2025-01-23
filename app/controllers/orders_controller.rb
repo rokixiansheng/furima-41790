@@ -1,22 +1,18 @@
 class OrdersController < ApplicationController
-
+  before_action :set_item, only: [:index, :create]
+  before_action :authenticate_user!, only: :index
 
   def index
-    @item = Item.find(params[:item_id])
     if current_user == @item.user  
       redirect_to root_path
     elsif user_signed_in? && @item.order.present?
       redirect_to root_path
-    elsif user_signed_in?
+    else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @order_delivery = OrderDelivery.new
-    else
-      redirect_to user_session_path
-    end
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_delivery = OrderDelivery.new(order_params)
     if @order_delivery.valid?
        pay_item
@@ -42,5 +38,8 @@ class OrdersController < ApplicationController
     )
   end
 
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
 end

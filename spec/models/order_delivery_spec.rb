@@ -55,8 +55,8 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Tel must be 10 or 11 digits")
       end
-      it '電話番号が8桁以下だと保存できないこと' do
-        @order_delivery.tel = '12345678'
+      it '電話番号が9桁以下だと保存できないこと' do
+        @order_delivery.tel = '123456789'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Tel must be 10 or 11 digits")
       end
@@ -69,6 +69,16 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと保存できないこと' do
+        @order_delivery.user_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと保存できないこと' do
+        @order_delivery.item_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
